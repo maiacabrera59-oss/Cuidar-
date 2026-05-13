@@ -6,6 +6,9 @@ import {
 import { Layouts } from './components/layouts/Layouts';
 import { Home } from './pages/Home';
 import { Medicamentos } from './pages/Medicamentos';
+import { Perfil } from './pages/Perfil';
+import { Recordatorios } from './pages/Recordatorios';
+import { Recetas } from './pages/Recetas';
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +29,18 @@ export const router = createBrowserRouter([
       {
         path: 'medicamentos',
         element: <Medicamentos />,
+      },
+      {
+        path: 'perfil',
+        element: <Perfil />,
+      },
+      {
+        path: 'recordatorios',
+        element: <Recordatorios />,
+      },
+      {
+        path: 'recetas',
+        element: <Recetas />,
       },
     ],
   },

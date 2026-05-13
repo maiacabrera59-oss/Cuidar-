@@ -23,11 +23,11 @@ export function Layouts() {
 
             <Link to="/medicamentos">Medicamentos</Link>
 
-            <Link to="/">Alertas</Link>
+            <Link to="/recordatorios">Recordatorios</Link>
 
-            <Link to="/">Recetas</Link>
+            <Link to="/recetas">Recetas</Link>
 
-            <Link to="/">Perfil</Link>
+            <Link to="/perfil">Perfil</Link>
           </nav>
 
           {/* PERFIL */}
@@ -58,15 +58,15 @@ export function Layouts() {
           </li>
 
           <li>
-            <Link to="/">Alertas</Link>
+            <Link to="/recordatorios">Recordatorios</Link>
           </li>
 
           <li>
-            <Link to="/">Recetas</Link>
+            <Link to="/recetas">Recetas</Link>
           </li>
 
           <li>
-            <Link to="/">Perfil</Link>
+            <Link to="/perfil">Perfil</Link>
           </li>
 
         </ul>
