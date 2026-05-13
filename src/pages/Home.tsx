@@ -4,24 +4,6 @@ export function Home() {
       
       {/* CONTENEDOR PRINCIPAL */}
       <div className="max-w-6xl mx-auto">
-
-        {/* HEADER */}
-        <header className="flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-[#2E7D32]">
-              Cuidar+
-            </h1>
-
-            <p className="text-sm text-[#747970] mt-1">
-              Gestión inteligente de medicamentos
-            </p>
-          </div>
-
-          <button className="w-12 h-12 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center text-xl hover:scale-105 transition">
-            🔍
-          </button>
-        </header>
-
         {/* BIENVENIDA */}
         <section className="mt-10">
           <p className="text-[#747970] text-base md:text-lg">

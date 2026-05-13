@@ -21,7 +21,7 @@ export function Layouts() {
 
             <Link to="/">Inicio</Link>
 
-            <Link to="/">Medicamentos</Link>
+            <Link to="/medicamentos">Medicamentos</Link>
 
             <Link to="/">Alertas</Link>
 
@@ -54,7 +54,7 @@ export function Layouts() {
           </li>
 
           <li>
-            <Link to="/">Medicamentos</Link>
+            <Link to="/medicamentos">Medicamentos</Link>
           </li>
 
           <li>

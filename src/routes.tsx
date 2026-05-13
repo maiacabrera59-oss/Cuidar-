@@ -5,6 +5,7 @@ import {
 
 import { Layouts } from './components/layouts/Layouts';
 import { Home } from './pages/Home';
+import { Medicamentos } from './pages/Medicamentos';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,11 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+
+      {
+        path: 'medicamentos',
+        element: <Medicamentos />,
       },
     ],
   },
