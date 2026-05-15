@@ -1,102 +1,62 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-const loginSchema = z.object({
-  email: z.email("Email inválido"),
-  password: z
-      .string()
-      .min(1, "La contraseña es obligatoria"),
-});
-
-type LoginFormData = z.infer<typeof loginSchema>;
-
 export function Login() {
-  const [loading, setLoading] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-  });
-
- async function onSubmit(data: LoginFormData) {
-    setLoading(true);
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const fakeResponse = {
-        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30",
-      };
-
-      localStorage.setItem("token", fakeResponse.token);
-
-      console.log("Token guardado:", fakeResponse.token);
-      alert("Login exitoso");
-      window.location.href = "/products";
-    } catch (error) {
-      console.error(error);
-      alert("Error en el login");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <div className="h-[80vh] flex items-center justify-center">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-sm bg-white p-6 rounded-xl border shadow-md"
-      >
-        <h2 className="text-2xl font-semibold text-center mb-6">
-          Login
-        </h2>
-        <div className="mb-4">
-          <input
-            type="email"
-            placeholder="Email"
-            {...register("email")}
-            className={`w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2
-              ${errors.email
-                ? "border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:ring-blue-500"
-              }`}
-          />
-          {errors.email && (
-            <p className="text-sm text-red-600 mt-1">
-              {errors.email.message}
+    <section className="min-h-screen bg-[#F4F4EE] flex justify-center items-center p-6">
+      <div className="w-full max-w-sm flex flex-col items-center">
+
+
+
+        {/* Card */}
+        <div className="w-full bg-gray-200 border border-gray-200 rounded-[35px] p-10 shadow-sm">
+
+          {/* Título */}
+          <div className="text-center mb-10">
+            <h2 className="text-5xl font-bold text-gray-900 mb-4">
+              Bienvenido
+            </h2>
+
+            <p className="text-gray-600 text-lg">
+              Ingresá para gestionar tus medicamentos
             </p>
-          )}
+          </div>
+
+          {/* Formulario */}
+          <form className="flex flex-col gap-5">
+
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              className="w-full rounded-2xl border border-gray-300 bg-white px-5 py-4 outline-none focus:border-green-700"
+            />
+
+            <input
+              type="password"
+              placeholder="Contraseña"
+              className="w-full rounded-2xl border border-gray-300 bg-white px-5 py-4 outline-none focus:border-green-700"
+            />
+
+            {/* Botón login */}
+            <button
+              className="w-full bg-green-800 hover:bg-green-900 transition text-white rounded-2xl py-4 font-semibold text-lg mt-2"
+            >
+              Ingresar →
+            </button>
+
+            {/* Botón registro */}
+            <button
+              type="button"
+              className="w-full border border-gray-400 rounded-2xl py-4 font-semibold text-gray-800 bg-transparent"
+            >
+              Crear cuenta
+            </button>
+          </form>
+
+          {/* Texto inferior */}
+          <p className="text-center text-xs text-gray-500 mt-8 leading-5">
+            Al continuar, aceptas nuestras políticas de privacidad y términos
+            del servicio médico.
+          </p>
         </div>
-        <div className="mb-6">
-          <input
-            type="password"
-            placeholder="Password"
-            {...register("password")}
-            className={`w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2
-              ${errors.password
-                ? "border-red-500 focus:ring-red-500"
-                : "border-gray-300 focus:ring-blue-500"
-              }`}
-          />
-          {errors.password && (
-            <p className="text-sm text-red-600 mt-1">
-              {errors.password.message}
-            </p>
-          )}
-        </div>
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-        >
-          {loading ? "Ingresando..." : "Login"}
-        </button>
-      </form>
-    </div>
+      </div>
+    </section>
   );
 }

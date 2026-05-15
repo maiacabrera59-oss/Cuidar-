@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 export function Home() {
   return (
     <section className="min-h-screen bg-[#F5F5F5] text-[#212121] px-4 py-6">
-      
+
       {/* CONTENEDOR PRINCIPAL */}
       <div className="max-w-6xl mx-auto">
         {/* BIENVENIDA */}
@@ -10,7 +11,7 @@ export function Home() {
             Hola, Mateo
           </p>
 
-          <h2 className="text-4xl md:text-6xl font-bold leading-tight mt-2">
+          <h2 className="text-2xl md:text-6xl font-bold leading-tight mt-2">
             Todo bajo control
           </h2>
         </section>
@@ -59,7 +60,7 @@ export function Home() {
           <div className="flex flex-col gap-6">
 
             {/* PROGRESO */}
-            <div className="bg-white rounded-3xl p-6 border border-gray-200 shadow-sm">
+            <div className="bg-white rounded-4xl p-6 border border-gray-200 shadow-sm">
               <p className="text-[#747970]">
                 Progreso del día
               </p>
@@ -94,7 +95,7 @@ export function Home() {
         <section className="mt-14">
 
           <div className="flex justify-between items-center">
-            <h3 className="text-2xl md:text-3xl font-bold">
+            <h3 className="text-5xl  font-bold">
               Accesos rápidos
             </h3>
 
@@ -106,7 +107,11 @@ export function Home() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
 
             {/* CARD */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-[#2E7D32] hover:-translate-y-1 transition cursor-pointer">
+            {/* CARD */}
+            <Link
+              to="/medicamentos"
+              className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-[#2E7D32] hover:-translate-y-1 transition cursor-pointer block"
+            >
               <div className="text-3xl mb-4">💊</div>
 
               <p className="font-bold text-lg text-[#212121]">
@@ -116,10 +121,13 @@ export function Home() {
               <p className="text-sm text-[#747970] mt-2">
                 Ver tratamientos activos
               </p>
-            </div>
+            </Link>
 
-            {/* CARD */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-[#2E7D32] hover:-translate-y-1 transition cursor-pointer">
+            {/* CARD RECETAS */}
+            <Link
+              to="/recetas"
+              className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-[#2E7D32] hover:-translate-y-1 transition cursor-pointer block"
+            >
               <div className="text-3xl mb-4">📄</div>
 
               <p className="font-bold text-lg text-[#212121]">
@@ -129,10 +137,13 @@ export function Home() {
               <p className="text-sm text-[#747970] mt-2">
                 Recetario digital
               </p>
-            </div>
+            </Link>
 
-            {/* CARD */}
-            <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-[#2E7D32] hover:-translate-y-1 transition cursor-pointer">
+            {/* CARD RECORDATORIOS */}
+            <Link
+              to="/recordatorios"
+              className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-[#2E7D32] hover:-translate-y-1 transition cursor-pointer block"
+            >
               <div className="text-3xl mb-4">⏰</div>
 
               <p className="font-bold text-lg text-[#212121]">
@@ -142,7 +153,7 @@ export function Home() {
               <p className="text-sm text-[#747970] mt-2">
                 Gestionar alertas y horarios
               </p>
-            </div>
+            </Link>
           </div>
         </section>
       </div>
