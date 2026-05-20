@@ -1,60 +1,156 @@
+import { useNavigate } from "react-router-dom";
+import {
+  Mail,
+  Lock,
+  Eye,
+} from "lucide-react";
+
 export function Login() {
+
+  const navigate = useNavigate();
+
+  function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+
+    navigate("/app");
+  }
+
   return (
-    <section className="min-h-screen bg-[#F4F4EE] flex justify-center items-center p-6">
-      <div className="w-full max-w-sm flex flex-col items-center">
+    <section className="min-h-screen bg-[#F4F4EE] flex justify-center items-center p-4">
 
+      {/* CONTENEDOR */}
+      <div className="w-full max-w-[380px]">
 
+        {/* CARD */}
+        <div className="bg-[#ECECEC] rounded-[32px] px-5 py-7 shadow-md">
 
-        {/* Card */}
-        <div className="w-full bg-gray-200 border border-gray-200 rounded-[35px] p-10 shadow-sm">
+          {/* TITULO */}
+          <div className="text-center mb-7">
 
-          {/* Título */}
-          <div className="text-center mb-10">
-            <h2 className="text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl sm:text-5xl font-extrabold text-[#0F172A] mb-3">
               Bienvenido
             </h2>
 
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
               Ingresá para gestionar tus medicamentos
             </p>
+
           </div>
 
-          {/* Formulario */}
-          <form className="flex flex-col gap-5">
+          {/* FORM */}
+          <form
+            onSubmit={handleLogin}
+            className="flex flex-col gap-4"
+          >
 
-            <input
-              type="email"
-              placeholder="Correo electrónico"
-              className="w-full rounded-2xl border border-gray-300 bg-white px-5 py-4 outline-none focus:border-green-700"
-            />
+            {/* EMAIL */}
+            <div className="flex items-center bg-white border border-gray-300 rounded-2xl px-4 py-3">
 
-            <input
-              type="password"
-              placeholder="Contraseña"
-              className="w-full rounded-2xl border border-gray-300 bg-white px-5 py-4 outline-none focus:border-green-700"
-            />
+              <Mail
+                className="text-gray-500 mr-3"
+                size={20}
+              />
 
-            {/* Botón login */}
+              <input
+                type="email"
+                placeholder="Correo electrónico"
+                className="w-full outline-none text-sm sm:text-base bg-transparent"
+              />
+            </div>
+
+            {/* PASSWORD */}
+            <div className="flex items-center bg-white border border-gray-300 rounded-2xl px-4 py-3">
+
+              <Lock
+                className="text-gray-500 mr-3"
+                size={20}
+              />
+
+              <input
+                type="password"
+                placeholder="Contraseña"
+                className="w-full outline-none text-sm sm:text-base bg-transparent"
+              />
+
+              <Eye
+                className="text-gray-500 cursor-pointer"
+                size={20}
+              />
+            </div>
+
+            {/* LOGIN */}
             <button
-              className="w-full bg-green-800 hover:bg-green-900 transition text-white rounded-2xl py-4 font-semibold text-lg mt-2"
+              type="submit"
+              className="w-full bg-[#067A34] hover:bg-green-900 transition text-white rounded-2xl py-3.5 font-bold text-lg mt-1"
             >
               Ingresar →
             </button>
 
-            {/* Botón registro */}
+            {/* DIVIDER */}
+            <div className="flex items-center gap-3 my-1">
+
+              <div className="flex-1 h-[1px] bg-gray-300"></div>
+
+              <span className="text-gray-500 text-xs sm:text-sm whitespace-nowrap">
+                o continuar con
+              </span>
+
+              <div className="flex-1 h-[1px] bg-gray-300"></div>
+
+            </div>
+
+            {/* GOOGLE */}
             <button
               type="button"
-              className="w-full border border-gray-400 rounded-2xl py-4 font-semibold text-gray-800 bg-transparent"
+              className="w-full bg-white border border-gray-300 rounded-2xl py-3 px-4 flex items-center justify-center gap-3 text-sm sm:text-base font-semibold hover:bg-gray-50 transition"
+            >
+              <img
+                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
+                alt="Google"
+                className="w-5 h-5"
+              />
+
+              Continuar con Google
+            </button>
+
+            {/* FACEBOOK */}
+            <button
+              type="button"
+              className="w-full bg-white border border-gray-300 rounded-2xl py-3 px-4 flex items-center justify-center gap-3 text-sm sm:text-base font-semibold hover:bg-gray-50 transition"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/124/124010.png"
+                alt="Facebook"
+                className="w-5 h-5"
+              />
+
+              Continuar con Facebook
+            </button>
+
+            {/* DIVIDER */}
+            <div className="flex items-center gap-3 my-1">
+
+              <div className="flex-1 h-[1px] bg-gray-300"></div>
+
+              <span className="text-gray-500 text-xs">
+                o
+              </span>
+
+              <div className="flex-1 h-[1px] bg-gray-300"></div>
+
+            </div>
+
+            {/* REGISTRO */}
+            <button
+              type="button"
+              onClick={() => navigate("/register")}
+              className="w-full border border-gray-400 rounded-2xl py-3 font-semibold text-gray-800 bg-transparent text-base hover:bg-gray-100 transition"
             >
               Crear cuenta
             </button>
+
           </form>
 
-          {/* Texto inferior */}
-          <p className="text-center text-xs text-gray-500 mt-8 leading-5">
-            Al continuar, aceptas nuestras políticas de privacidad y términos
-            del servicio médico.
-          </p>
         </div>
       </div>
     </section>

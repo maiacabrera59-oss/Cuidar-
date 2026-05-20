@@ -10,7 +10,7 @@ export function Layouts() {
 
           {/* LOGO */}
           <Link
-            to="/"
+            to="/app"
             className="text-3xl md:text-5xl font-bold text-[#2E7D32]"
           >
             Cuidar+
@@ -20,35 +20,35 @@ export function Layouts() {
           <nav className="hidden md:flex gap-6 lg:gap-10 text-lg lg:text-2xl ml-auto">
 
             <Link
-              to="/"
+              to="/app"
               className="hover:text-[#2E7D32] transition"
             >
               Inicio
             </Link>
 
             <Link
-              to="/medicamentos"
+              to="/app/medicamentos"
               className="hover:text-[#2E7D32] transition"
             >
               Medicamentos
             </Link>
 
             <Link
-              to="/recordatorios"
+              to="/app/recordatorios"
               className="hover:text-[#2E7D32] transition"
             >
               Recordatorios
             </Link>
 
             <Link
-              to="/recetas"
+              to="/app/recetas"
               className="hover:text-[#2E7D32] transition"
             >
               Recetas
             </Link>
 
             <Link
-              to="/perfil"
+              to="/app/perfil"
               className="hover:text-[#2E7D32] transition"
             >
               Perfil
@@ -76,7 +76,7 @@ export function Layouts() {
 
           <li>
             <Link
-              to="/"
+              to="/app"
               className="flex flex-col items-center"
             >
               🏠
@@ -86,7 +86,7 @@ export function Layouts() {
 
           <li>
             <Link
-              to="/medicamentos"
+              to="/app/medicamentos"
               className="flex flex-col items-center"
             >
               💊
@@ -96,7 +96,7 @@ export function Layouts() {
 
           <li>
             <Link
-              to="/recordatorios"
+              to="/app/recordatorios"
               className="flex flex-col items-center"
             >
               ⏰
@@ -106,7 +106,7 @@ export function Layouts() {
 
           <li>
             <Link
-              to="/recetas"
+              to="/app/recetas"
               className="flex flex-col items-center"
             >
               📄
@@ -116,7 +116,7 @@ export function Layouts() {
 
           <li>
             <Link
-              to="/perfil"
+              to="/app/perfil"
               className="flex flex-col items-center"
             >
               👤
