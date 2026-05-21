@@ -64,12 +64,30 @@ export function Layouts() {
 
           </nav>
 
+   
           {/* PERFIL */}
-          <img
-            src="https://i.pravatar.cc/40"
-            alt="perfil"
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover"
-          />
+<Link to="/app/perfil">
+
+  <img
+    src="https://i.pravatar.cc/40"
+    alt="perfil"
+    className="
+      w-9
+      h-9
+      sm:w-10
+      sm:h-10
+      rounded-full
+      object-cover
+      cursor-pointer
+      hover:scale-105
+      transition
+      border-2
+      border-transparent
+      hover:border-[#2E7D32]/30
+    "
+  />
+
+</Link>
 
         </div>
       </header>
