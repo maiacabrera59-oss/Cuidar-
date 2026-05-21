@@ -10,6 +10,7 @@ import { Perfil } from "./pages/Perfil";
 import { Recordatorios } from "./pages/Recordatorios";
 import { Recetas } from "./pages/Recetas";
 import { HistorialAnimo } from "./pages/HistorialdeAnimo";
+import { Nuevacuenta } from "./pages/Nuevacuenta";
 
 import { Layouts } from "./components/layouts/Layouts";
 
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
       {
         path: "historial-animo",
         element: <HistorialAnimo />,
+      },
+      {
+        path: "nuevacuenta",
+        element: <Nuevacuenta />,
       },
 
     ],

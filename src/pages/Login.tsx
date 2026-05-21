@@ -143,7 +143,7 @@ export function Login() {
             {/* REGISTRO */}
             <button
               type="button"
-              onClick={() => navigate("/register")}
+              onClick={() => navigate("/app/nuevacuenta")}
               className="w-full border border-gray-400 rounded-2xl py-3 font-semibold text-gray-800 bg-transparent text-base hover:bg-gray-100 transition"
             >
               Crear cuenta
