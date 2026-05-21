@@ -7,7 +7,6 @@ import perfilIcon from "../../assets/svg/perfil.svg";
 import recetaIcon from "../../assets/svg/receta.svg";
 
 export function Layouts() {
-
   return (
     <div className="min-h-screen bg-[#F5F5F5] text-[#212121] flex flex-col">
 
@@ -66,26 +65,24 @@ export function Layouts() {
 
           {/* PERFIL */}
           <Link to="/app/perfil">
-
             <img
               src="https://i.pravatar.cc/40"
               alt="perfil"
               className="
-      w-9
-      h-9
-      sm:w-10
-      sm:h-10
-      rounded-full
-      object-cover
-      cursor-pointer
-      hover:scale-105
-      transition
-      border-2
-      border-transparent
-      hover:border-[#2E7D32]/30
-    "
+                w-9
+                h-9
+                sm:w-10
+                sm:h-10
+                rounded-full
+                object-cover
+                cursor-pointer
+                hover:scale-105
+                transition
+                border-2
+                border-transparent
+                hover:border-[#2E7D32]/30
+              "
             />
-
           </Link>
 
         </div>
