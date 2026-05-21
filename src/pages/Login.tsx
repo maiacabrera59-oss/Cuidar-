@@ -16,7 +16,7 @@ export function Login() {
   }
 
   return (
-    <section className="min-h-screen bg-[#F4F4EE] flex justify-center items-center p-4">
+    <section className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
 
       {/* CONTENEDOR */}
       <div className="w-full max-w-[380px]">
