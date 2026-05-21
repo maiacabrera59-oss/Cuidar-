@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import pastillasIcon from "../assets/svg/pastillas.png";
 import recetaIcon from "../assets/svg/receta.svg";
 import recordatorioIcon from "../assets/svg/recordatorio.svg";
 
+
 export function Home() {
+  const navigate = useNavigate();
   return (
     <section className="min-h-screen bg-[#F5F5F5] text-[#212121] px-3 md:px-4 py-4 md:py-6">
 
@@ -51,7 +53,11 @@ export function Home() {
 
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-8 md:mt-12">
 
-              <button className="flex-1 bg-[#2E7D32] text-white font-bold py-3 md:py-4 rounded-2xl hover:opacity-90 transition">
+              {/* BOTÓN CONFIRMAR DOSIS */}
+              <button
+                onClick={() => navigate("/app/historial-animo")}
+                className="flex-1 bg-[#2E7D32] text-white font-bold py-3 md:py-4 rounded-2xl hover:opacity-90 transition"
+              >
                 Confirmar dosis
               </button>
 

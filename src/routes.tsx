@@ -9,6 +9,7 @@ import { Medicamentos } from "./pages/Medicamentos";
 import { Perfil } from "./pages/Perfil";
 import { Recordatorios } from "./pages/Recordatorios";
 import { Recetas } from "./pages/Recetas";
+import { HistorialAnimo } from "./pages/HistorialdeAnimo";
 
 import { Layouts } from "./components/layouts/Layouts";
 
@@ -61,6 +62,13 @@ export const router = createBrowserRouter([
         path: "recetas",
         element: <Recetas />,
       },
+
+      // ESTADO DE ÁNIMO
+      {
+        path: "historial-animo",
+        element: <HistorialAnimo />,
+      },
+
     ],
   },
 ]);
