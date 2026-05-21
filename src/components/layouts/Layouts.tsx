@@ -1,6 +1,10 @@
 import { Link, Outlet } from "react-router-dom";
 
 import iconoCasa from "../../assets/svg/home.svg";
+import recordatorioIcon from "../../assets/svg/recordatorio.svg";
+import medicamentoIcon from "../../assets/svg/pastillas.png";
+import perfilIcon from "../../assets/svg/perfil.svg";
+import recetaIcon from "../../assets/svg/receta.svg";
 
 export function Layouts() {
 
@@ -71,26 +75,26 @@ export function Layouts() {
       </header>
 
       {/* CONTENIDO */}
-      <main className="flex-1 w-full px-4 pb-24 md:pb-6">
+      <main className="flex-1 w-full px-3 md:px-4 pb-28 md:pb-6">
         <Outlet />
       </main>
 
       {/* FOOTER MOBILE */}
       <footer className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
 
-        <ul className="grid grid-cols-5 py-2">
+        <ul className="grid grid-cols-5 items-center py-2">
 
           {/* INICIO */}
           <li>
             <Link
               to="/app"
-              className="flex flex-col items-center justify-center gap-1 text-[11px]"
+              className="flex flex-col items-center justify-center gap-1 text-[10px]"
             >
 
               <img
                 src={iconoCasa}
                 alt="Inicio"
-                className="w-5 h-5 object-contain"
+                className="w-6 h-6 object-contain"
               />
 
               <span>Inicio</span>
@@ -102,10 +106,17 @@ export function Layouts() {
           <li>
             <Link
               to="/app/medicamentos"
-              className="flex flex-col items-center justify-center gap-1 text-[11px]"
+              className="flex flex-col items-center justify-center gap-1 text-[10px] px-1"
             >
-              <span className="text-lg">💊</span>
-              <span>Medic.</span>
+              <img
+                src={medicamentoIcon}
+                alt="Medicamentos"
+                className="w-8 h-8 object-contain"
+              />
+
+              <span className="text-center leading-tight">
+                Medicamentos
+              </span>
             </Link>
           </li>
 
@@ -113,10 +124,17 @@ export function Layouts() {
           <li>
             <Link
               to="/app/recordatorios"
-              className="flex flex-col items-center justify-center gap-1 text-[11px]"
+              className="flex flex-col items-center justify-center gap-1 text-[10px] px-1"
             >
-              <span className="text-lg">⏰</span>
-              <span>Record.</span>
+              <img
+                src={recordatorioIcon}
+                alt="Recordatorios"
+                className="w-8 h-8 object-contain"
+              />
+
+              <span className="text-center leading-tight">
+                Recordatorios
+              </span>
             </Link>
           </li>
 
@@ -124,9 +142,14 @@ export function Layouts() {
           <li>
             <Link
               to="/app/recetas"
-              className="flex flex-col items-center justify-center gap-1 text-[11px]"
+              className="flex flex-col items-center justify-center gap-1 text-[10px] px-1"
             >
-              <span className="text-lg">📄</span>
+              <img
+                src={recetaIcon}
+                alt="Recetas"
+                className="w-8 h-8 object-contain"
+              />
+
               <span>Recetas</span>
             </Link>
           </li>
@@ -135,9 +158,14 @@ export function Layouts() {
           <li>
             <Link
               to="/app/perfil"
-              className="flex flex-col items-center justify-center gap-1 text-[11px]"
+              className="flex flex-col items-center justify-center gap-1 text-[10px]"
             >
-              <span className="text-lg">👤</span>
+              <img
+                src={perfilIcon}
+                alt="Perfil"
+                className="w-7 h-7 object-contain"
+              />
+
               <span>Perfil</span>
             </Link>
           </li>
