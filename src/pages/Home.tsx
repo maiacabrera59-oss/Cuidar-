@@ -109,17 +109,13 @@ export function Home() {
             <h3 className="text-2xl md:text-5xl font-bold">
               Accesos rápidos
             </h3>
-
-            <button className="text-[#2E7D32] text-sm md:text-base font-semibold hover:underline whitespace-nowrap">
-              Ver todo
-            </button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mt-5 md:mt-6">
 
             {/* CARD MEDICAMENTOS */}
             <Link
-              to="/medicamentos"
+              to="/app/medicamentos"
               className="bg-white p-5 md:p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-[#2E7D32] hover:-translate-y-1 transition"
             >
               <div className="mb-4">
@@ -141,7 +137,7 @@ export function Home() {
 
             {/* CARD RECETAS */}
             <Link
-              to="/recetas"
+              to="/app/recetas"
               className="bg-white p-5 md:p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-[#2E7D32] hover:-translate-y-1 transition"
             >
               <div className="mb-4">
@@ -163,7 +159,7 @@ export function Home() {
 
             {/* CARD RECORDATORIOS */}
             <Link
-              to="/recordatorios"
+              to="/app/recordatorios"
               className="bg-white p-5 md:p-6 rounded-3xl border border-gray-200 shadow-sm hover:border-[#2E7D32] hover:-translate-y-1 transition"
             >
               <div className="mb-4">

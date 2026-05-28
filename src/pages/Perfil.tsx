@@ -1,5 +1,16 @@
 
+import { useNavigate } from "react-router-dom";
 export function Perfil() {
+  const navigate = useNavigate();
+  const cerrarSesion = () => {
+
+    // BORRAR DATOS
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // VOLVER AL LOGIN
+    navigate("/");
+  };
   const paciente = {
     nombre: "Ricardo Gómez",
     edad: 74,
@@ -204,6 +215,7 @@ export function Perfil() {
               </button>
 
               <button
+                onClick={cerrarSesion}
                 className="
                   w-full
                   bg-white
@@ -327,18 +339,22 @@ export function Perfil() {
               Editar Perfil
             </button>
 
-            <button className="
-              w-full
-              mt-4
-              bg-[#F5F5F5]
+            <button
+              onClick={cerrarSesion}
+              className="
+               w-full
+               bg-white
               border
-              border-gray-200
-              hover:bg-gray-100
-              transition
+             border-gray-200
+             hover:bg-gray-100
+               transition
               rounded-2xl
               py-4
-              font-semibold
-            ">
+                 font-semibold
+           shadow-sm
+            
+            "
+            >
               Cerrar sesión
             </button>
           </div>
