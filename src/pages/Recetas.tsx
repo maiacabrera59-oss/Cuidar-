@@ -39,11 +39,11 @@ export function Recetas() {
     <>
       <section
         className="
+          recetas-page
           min-h-screen
           bg-[#F5F5F5]
           px-4
           py-6
-          animate-[fadeIn_.4s_ease-out]
         "
       >
         <div className="max-w-5xl mx-auto">
@@ -63,6 +63,7 @@ export function Recetas() {
 
             <button
               className="
+                filter-button
                 flex
                 items-center
                 gap-2
@@ -82,6 +83,7 @@ export function Recetas() {
 
             <button
               className="
+                tab-button
                 px-6
                 py-2
                 rounded-xl
@@ -95,6 +97,7 @@ export function Recetas() {
 
             <button
               className="
+                tab-button
                 px-6
                 py-2
                 rounded-xl
@@ -116,6 +119,7 @@ export function Recetas() {
               <div
                 key={receta.id}
                 className="
+                  receta-card
                   bg-white
                   border
                   border-gray-200
@@ -123,12 +127,6 @@ export function Recetas() {
                   p-4
                   md:p-5
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-md
                 "
               >
                 <div className="flex items-center justify-between gap-4">
@@ -138,6 +136,7 @@ export function Recetas() {
 
                     <div
                       className="
+                        receta-icon
                         w-12
                         h-12
                         rounded-2xl
@@ -196,6 +195,8 @@ export function Recetas() {
 
                     <button
                       className="
+                        qr-button
+
                         hidden
                         sm:flex
 
@@ -211,12 +212,6 @@ export function Recetas() {
                         rounded-xl
                         font-semibold
 
-                        transition-all
-                        duration-300
-
-                        hover:-translate-y-1
-                        hover:shadow-lg
-
                         active:scale-[0.98]
                       "
                     >
@@ -226,6 +221,7 @@ export function Recetas() {
 
                     <button
                       className="
+                        menu-button
                         w-11
                         h-11
                         rounded-xl
@@ -234,9 +230,6 @@ export function Recetas() {
                         flex
                         items-center
                         justify-center
-
-                        hover:bg-gray-100
-                        transition
                       "
                     >
                       <MoreVertical size={18} />
@@ -249,6 +242,8 @@ export function Recetas() {
                 {/* BOTON MOBILE */}
                 <button
                   className="
+                    qr-mobile
+
                     sm:hidden
 
                     mt-4
@@ -278,6 +273,8 @@ export function Recetas() {
           {/* INFO */}
           <div
             className="
+              info-card
+
               mt-8
               bg-white
               border
@@ -285,17 +282,14 @@ export function Recetas() {
               rounded-3xl
               p-6
               shadow-sm
-
-              transition-all
-              duration-300
-
-              hover:shadow-md
             "
           >
             <div className="flex items-center gap-4">
 
               <div
                 className="
+                  info-icon
+
                   w-16
                   h-16
                   rounded-full
@@ -333,13 +327,104 @@ export function Recetas() {
       </section>
 
       <style>{`
-        @keyframes fadeIn {
+        @keyframes pageFade {
           from {
             opacity: 0;
+            transform: translateY(6px);
           }
           to {
             opacity: 1;
+            transform: translateY(0);
           }
+        }
+
+        .recetas-page {
+          animation: pageFade .35s ease-out;
+        }
+
+        .receta-card {
+          transition:
+            transform .25s ease,
+            box-shadow .25s ease,
+            border-color .25s ease;
+          will-change: transform;
+        }
+
+        .receta-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 24px rgba(0,0,0,.06);
+        }
+
+        .receta-icon {
+          transition: transform .25s ease;
+        }
+
+        .receta-card:hover .receta-icon {
+          transform: scale(1.08);
+        }
+
+        .qr-button,
+        .qr-mobile {
+          transition:
+            transform .25s ease,
+            box-shadow .25s ease,
+            opacity .25s ease;
+        }
+
+        .qr-button:hover,
+        .qr-mobile:hover {
+          transform: translateY(-2px);
+        }
+
+        .menu-button {
+          transition:
+            background-color .25s ease,
+            transform .25s ease;
+        }
+
+        .menu-button:hover {
+          background: #f5f5f5;
+          transform: scale(1.05);
+        }
+
+        .filter-button {
+          transition:
+            transform .25s ease,
+            opacity .25s ease;
+        }
+
+        .filter-button:hover {
+          transform: translateY(-1px);
+          opacity: .85;
+        }
+
+        .tab-button {
+          transition:
+            transform .25s ease,
+            box-shadow .25s ease;
+        }
+
+        .tab-button:hover {
+          transform: translateY(-1px);
+        }
+
+        .info-card {
+          transition:
+            transform .25s ease,
+            box-shadow .25s ease;
+        }
+
+        .info-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 24px rgba(0,0,0,.05);
+        }
+
+        .info-icon {
+          transition: transform .25s ease;
+        }
+
+        .info-card:hover .info-icon {
+          transform: scale(1.05);
         }
       `}</style>
     </>
