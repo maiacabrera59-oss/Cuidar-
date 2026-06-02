@@ -5,6 +5,7 @@ import recordatorioIcon from "../../assets/svg/recordatorio.svg";
 import medicamentoIcon from "../../assets/svg/pastillas.png";
 import perfilIcon from "../../assets/svg/perfil.svg";
 import recetaIcon from "../../assets/svg/receta.svg";
+import logo from "../../assets/img/logo.png";
 
 export function Layouts() {
   return (
@@ -16,15 +17,16 @@ export function Layouts() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
 
           {/* LOGO */}
-          <Link
-            to="/app"
-            className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#2E7D32]"
-          >
-            Cuidar+
+          <Link to="/app">
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-22 sm:h-20 md:h-20 w-auto"
+            />
           </Link>
 
           {/* NAV DESKTOP */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-10 text-lg">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-10 text-xl">
 
             <Link
               to="/app"
