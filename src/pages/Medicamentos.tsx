@@ -266,52 +266,60 @@ export function Medicamentos() {
         {open && (
           <div
             className="
-              fixed
-              inset-0
-              bg-black/40
+      fixed
+      inset-0
+      bg-black/40
 
-              flex
-              items-center
-              justify-center
+      flex
+      items-center
+      justify-center
 
-              z-50
-              px-4
+      z-50
 
-              animate-[fadeIn_.25s_ease-out]
-            "
+      p-3
+      sm:p-4
+
+      animate-[fadeIn_.25s_ease-out]
+    "
           >
             <div
               className="
-                bg-white
-                w-full
-                max-w-lg
+        bg-white
+        w-full
+        max-w-lg
 
-                rounded-3xl
-                p-8
+        rounded-3xl
 
-                shadow-xl
+        p-5
+        sm:p-8
 
-                animate-[modalPop_.3s_ease-out]
-              "
+        shadow-xl
+
+        animate-[modalPop_.3s_ease-out]
+
+        max-h-[90vh]
+        overflow-y-auto
+      "
             >
               {/* HEADER MODAL */}
-              <div className="flex justify-between items-center">
-                <h2 className="text-3xl font-bold text-[#2E7D32]">
+              <div className="flex justify-between items-center gap-3">
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#2E7D32]">
                   Nuevo medicamento
                 </h2>
 
                 <button
                   onClick={() => setOpen(false)}
                   className="
-                    text-2xl
-                    text-gray-500
+            text-xl
+            sm:text-2xl
+            text-gray-500
 
-                    transition-all
-                    duration-300
+            transition-all
+            duration-300
 
-                    hover:text-black
-                    hover:rotate-90
-                  "
+            hover:text-black
+            hover:rotate-90
+          "
                 >
                   ✕
                 </button>
@@ -320,7 +328,7 @@ export function Medicamentos() {
               {/* FORM */}
               <form
                 onSubmit={handleSubmit}
-                className="mt-8 flex flex-col gap-5"
+                className="mt-6 sm:mt-8 flex flex-col gap-4 sm:gap-5"
               >
                 <div>
                   <label htmlFor="nombre" className="font-semibold">
@@ -336,22 +344,23 @@ export function Medicamentos() {
                     placeholder="Ej: Ibuprofeno"
                     required
                     className="
-                      w-full
-                      mt-2
-                      border
-                      border-gray-300
-                      rounded-2xl
-                      p-4
+              w-full
+              mt-2
+              border
+              border-gray-300
+              rounded-2xl
+              p-3
+              sm:p-4
 
-                      outline-none
+              outline-none
 
-                      transition-all
-                      duration-300
+              transition-all
+              duration-300
 
-                      focus:border-[#2E7D32]
-                      focus:ring-4
-                      focus:ring-[#2E7D32]/10
-                    "
+              focus:border-[#2E7D32]
+              focus:ring-4
+              focus:ring-[#2E7D32]/10
+            "
                   />
                 </div>
 
@@ -369,22 +378,23 @@ export function Medicamentos() {
                     placeholder="Ej: 600mg"
                     required
                     className="
-                      w-full
-                      mt-2
-                      border
-                      border-gray-300
-                      rounded-2xl
-                      p-4
+              w-full
+              mt-2
+              border
+              border-gray-300
+              rounded-2xl
+              p-3
+              sm:p-4
 
-                      outline-none
+              outline-none
 
-                      transition-all
-                      duration-300
+              transition-all
+              duration-300
 
-                      focus:border-[#2E7D32]
-                      focus:ring-4
-                      focus:ring-[#2E7D32]/10
-                    "
+              focus:border-[#2E7D32]
+              focus:ring-4
+              focus:ring-[#2E7D32]/10
+            "
                   />
                 </div>
 
@@ -401,22 +411,23 @@ export function Medicamentos() {
                     onChange={handleChange}
                     required
                     className="
-                      w-full
-                      mt-2
-                      border
-                      border-gray-300
-                      rounded-2xl
-                      p-4
+              w-full
+              mt-2
+              border
+              border-gray-300
+              rounded-2xl
+              p-3
+              sm:p-4
 
-                      outline-none
+              outline-none
 
-                      transition-all
-                      duration-300
+              transition-all
+              duration-300
 
-                      focus:border-[#2E7D32]
-                      focus:ring-4
-                      focus:ring-[#2E7D32]/10
-                    "
+              focus:border-[#2E7D32]
+              focus:ring-4
+              focus:ring-[#2E7D32]/10
+            "
                   />
                 </div>
 
@@ -433,44 +444,46 @@ export function Medicamentos() {
                     placeholder="Ej: Después de almorzar"
                     rows={4}
                     className="
-                      w-full
-                      mt-2
-                      border
-                      border-gray-300
-                      rounded-2xl
-                      p-4
+              w-full
+              mt-2
+              border
+              border-gray-300
+              rounded-2xl
+              p-3
+              sm:p-4
 
-                      outline-none
+              outline-none
 
-                      transition-all
-                      duration-300
+              transition-all
+              duration-300
 
-                      focus:border-[#2E7D32]
-                      focus:ring-4
-                      focus:ring-[#2E7D32]/10
-                    "
+              focus:border-[#2E7D32]
+              focus:ring-4
+              focus:ring-[#2E7D32]/10
+            "
                   />
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 mt-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4">
                   <button
                     type="button"
                     onClick={() => setOpen(false)}
                     className="
-                      flex-1
-                      border
-                      border-gray-300
-                      py-4
-                      rounded-2xl
+              flex-1
+              border
+              border-gray-300
+              py-3
+              sm:py-4
+              rounded-2xl
 
-                      transition-all
-                      duration-300
+              transition-all
+              duration-300
 
-                      hover:bg-gray-100
-                      hover:-translate-y-0.5
+              hover:bg-gray-100
+              hover:-translate-y-0.5
 
-                      active:scale-[0.98]
-                    "
+              active:scale-[0.98]
+            "
                   >
                     Cancelar
                   </button>
@@ -478,21 +491,22 @@ export function Medicamentos() {
                   <button
                     type="submit"
                     className="
-                      flex-1
-                      bg-[#2E7D32]
-                      text-white
-                      py-4
-                      rounded-2xl
-                      font-bold
+              flex-1
+              bg-[#2E7D32]
+              text-white
+              py-3
+              sm:py-4
+              rounded-2xl
+              font-bold
 
-                      transition-all
-                      duration-300
+              transition-all
+              duration-300
 
-                      hover:-translate-y-0.5
-                      hover:shadow-lg
+              hover:-translate-y-0.5
+              hover:shadow-lg
 
-                      active:scale-[0.98]
-                    "
+              active:scale-[0.98]
+            "
                   >
                     Guardar medicamento
                   </button>
