@@ -30,28 +30,23 @@ export function Perfil() {
           text-[#212121]
           px-4
           py-6
-          animate-[fadeIn_.4s_ease-out]
+          animate-[pageAppear_.35s_ease-out]
         "
       >
         <div className="max-w-6xl mx-auto">
 
-          <div className="flex items-center justify-between"></div>
+          <div className="flex items-center justify-between" />
 
           {/* MOBILE */}
           <div className="lg:hidden">
 
-            {/* PERFIL */}
-            <div
-              className="
-                mt-10
-                text-center
-                animate-[slideUp_.5s_ease-out]
-              "
-            >
+            <div className="mt-10 text-center">
+
               <img
                 src={paciente.foto}
                 alt=""
                 className="
+                  profile-avatar
                   w-32
                   h-32
                   rounded-[28px]
@@ -60,33 +55,34 @@ export function Perfil() {
                   border-4
                   border-[#2E7D32]/10
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:scale-105
-                  hover:shadow-md
-
-                  animate-[profileEnter_.6s_ease-out]
                 "
               />
 
-              <div
-                className="
-                  mt-4
-                  inline-flex
-                  items-center
-                  gap-2
-                  bg-[#2E7D32]/10
-                  text-[#2E7D32]
-                  px-4
-                  py-2
-                  rounded-full
-                  text-sm
-                  font-semibold
-                "
-              >
-                ● Activo
+              <div className="mt-4 flex justify-center">
+                <div
+                  className="
+                    inline-flex
+                    items-center
+                    gap-2
+                    bg-[#2E7D32]/10
+                    text-[#2E7D32]
+                    px-4
+                    py-2
+                    rounded-full
+                    text-sm
+                    font-semibold
+                  "
+                >
+                  <span
+                    className="
+                      w-2.5
+                      h-2.5
+                      rounded-full
+                      bg-[#2E7D32]
+                    "
+                  />
+                  Activo
+                </div>
               </div>
 
               <h2 className="text-4xl font-bold tracking-tight mt-5">
@@ -127,54 +123,49 @@ export function Perfil() {
               </div>
             </div>
 
-            {/* CARDS MOBILE */}
             <div className="space-y-5 mt-10">
 
-              {/* SANGRE */}
               <div
                 className="
+                  profile-card
                   bg-white
                   rounded-[30px]
                   p-6
                   border
                   border-gray-200
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-md
                 "
               >
                 <p className="text-[#747970] text-sm font-medium">
                   Grupo sanguíneo
                 </p>
 
-                <h3 className="text-6xl font-bold tracking-tight mt-4 text-[#2E7D32]">
+                <h3
+                  className="
+                    text-6xl
+                    font-bold
+                    tracking-tight
+                    mt-4
+                    text-[#2E7D32]
+                    animate-[bloodTypeAppear_.4s_ease-out]
+                  "
+                >
                   {paciente.sangre}
                 </h3>
 
                 <p className="text-[#747970] mt-3">
                   Factor {paciente.rh}
                 </p>
-              </div>
-
-              {/* EMERGENCIA */}
+              </div>              {/* EMERGENCIA */}
               <div
                 className="
+                  profile-card
                   bg-white
                   rounded-[30px]
                   p-6
                   border
                   border-gray-200
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-md
                 "
               >
                 <p className="text-[#747970] text-sm font-medium">
@@ -195,14 +186,6 @@ export function Perfil() {
                       rounded-2xl
                       py-3
                       font-semibold
-
-                      transition-all
-                      duration-300
-
-                      hover:-translate-y-1
-                      hover:shadow-lg
-
-                      active:scale-[0.98]
                     "
                   >
                     Llamar
@@ -217,14 +200,6 @@ export function Perfil() {
                       rounded-2xl
                       py-3
                       font-semibold
-
-                      transition-all
-                      duration-300
-
-                      hover:bg-gray-100
-                      hover:-translate-y-1
-
-                      active:scale-[0.98]
                     "
                   >
                     SMS
@@ -236,18 +211,13 @@ export function Perfil() {
               {/* DOCTOR */}
               <div
                 className="
+                  profile-card
                   bg-white
                   rounded-[30px]
                   p-6
                   border
                   border-gray-200
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-md
                 "
               >
                 <p className="text-[#747970] text-sm font-medium">
@@ -263,28 +233,31 @@ export function Perfil() {
                 </p>
               </div>
 
-              {/* DIRECCION */}
+              {/* DIRECCIÓN */}
               <div
                 className="
+                  profile-card
                   bg-white
                   rounded-[30px]
                   p-6
                   border
                   border-gray-200
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-md
                 "
               >
                 <p className="text-[#747970] text-sm font-medium">
                   Dirección particular
                 </p>
 
-                <h3 className="text-2xl font-bold tracking-tight mt-4 leading-snug">
+                <h3
+                  className="
+                    text-2xl
+                    font-bold
+                    tracking-tight
+                    mt-4
+                    leading-snug
+                  "
+                >
                   {paciente.direccion}
                 </h3>
 
@@ -293,12 +266,13 @@ export function Perfil() {
                     mt-5
                     text-[#2E7D32]
                     font-semibold
-                    hover:underline
                   "
                 >
                   Ver en el mapa
                 </button>
-              </div>              {/* BOTONES MOBILE */}
+              </div>
+
+              {/* BOTONES */}
               <div className="space-y-4 pt-2">
 
                 <button
@@ -311,14 +285,6 @@ export function Perfil() {
                     font-bold
                     text-lg
                     shadow-sm
-
-                    transition-all
-                    duration-300
-
-                    hover:-translate-y-1
-                    hover:shadow-lg
-
-                    active:scale-[0.98]
                   "
                 >
                   Editar Perfil
@@ -331,25 +297,18 @@ export function Perfil() {
                     bg-white
                     border
                     border-gray-200
+                    hover:bg-gray-100
                     rounded-2xl
                     py-4
                     font-semibold
                     shadow-sm
-
-                    transition-all
-                    duration-300
-
-                    hover:bg-gray-100
-                    hover:-translate-y-1
-                    hover:shadow-md
-
-                    active:scale-[0.98]
                   "
                 >
                   Cerrar sesión
                 </button>
 
               </div>
+
             </div>
           </div>
 
@@ -361,14 +320,13 @@ export function Perfil() {
               lg:grid-cols-[380px_1fr]
               gap-6
               mt-10
-
-              animate-[slideUp_.6s_ease-out]
             "
           >
 
             {/* PERFIL IZQUIERDA */}
             <div
               className="
+                profile-card
                 bg-white
                 rounded-[32px]
                 border
@@ -376,11 +334,6 @@ export function Perfil() {
                 shadow-sm
                 p-8
                 h-fit
-
-                transition-all
-                duration-300
-
-                hover:shadow-md
               "
             >
 
@@ -388,6 +341,7 @@ export function Perfil() {
                 src={paciente.foto}
                 alt=""
                 className="
+                  profile-avatar
                   w-44
                   h-44
                   rounded-[36px]
@@ -395,11 +349,6 @@ export function Perfil() {
                   object-cover
                   border-4
                   border-[#2E7D32]/10
-
-                  transition-all
-                  duration-300
-
-                  hover:scale-105
                 "
               />
 
@@ -418,7 +367,15 @@ export function Perfil() {
                     font-semibold
                   "
                 >
-                  ● Activo
+                  <span
+                    className="
+                      w-2.5
+                      h-2.5
+                      rounded-full
+                      bg-[#2E7D32]
+                    "
+                  />
+                  Activo
                 </div>
               </div>
 
@@ -459,9 +416,7 @@ export function Perfil() {
                   </span>
 
                 </div>
-              </div>
-
-              <button
+              </div>              <button
                 className="
                   w-full
                   mt-10
@@ -471,14 +426,6 @@ export function Perfil() {
                   py-4
                   font-bold
                   text-lg
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-lg
-
-                  active:scale-[0.98]
                 "
               >
                 Editar Perfil
@@ -488,23 +435,15 @@ export function Perfil() {
                 onClick={cerrarSesion}
                 className="
                   w-full
-                  mt-4
+                  mt-3
                   bg-white
                   border
                   border-gray-200
+                  hover:bg-gray-100
                   rounded-2xl
                   py-4
                   font-semibold
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:bg-gray-100
-                  hover:-translate-y-1
-                  hover:shadow-md
-
-                  active:scale-[0.98]
                 "
               >
                 Cerrar sesión
@@ -518,25 +457,29 @@ export function Perfil() {
               {/* SANGRE */}
               <div
                 className="
+                  profile-card
                   bg-white
                   rounded-[32px]
                   p-8
                   border
                   border-gray-200
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-md
                 "
               >
                 <p className="text-[#747970] text-base">
                   Grupo sanguíneo
                 </p>
 
-                <h3 className="text-8xl font-bold tracking-tight mt-6 text-[#2E7D32]">
+                <h3
+                  className="
+                    text-8xl
+                    font-bold
+                    tracking-tight
+                    mt-6
+                    text-[#2E7D32]
+                    animate-[bloodTypeAppear_.4s_ease-out]
+                  "
+                >
                   {paciente.sangre}
                 </h3>
 
@@ -548,18 +491,13 @@ export function Perfil() {
               {/* EMERGENCIA */}
               <div
                 className="
+                  profile-card
                   bg-white
                   rounded-[32px]
                   p-8
                   border
                   border-gray-200
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-md
                 "
               >
                 <p className="text-[#747970] text-base">
@@ -580,14 +518,6 @@ export function Perfil() {
                       rounded-2xl
                       py-4
                       font-semibold
-
-                      transition-all
-                      duration-300
-
-                      hover:-translate-y-1
-                      hover:shadow-lg
-
-                      active:scale-[0.98]
                     "
                   >
                     Llamar
@@ -602,14 +532,6 @@ export function Perfil() {
                       rounded-2xl
                       py-4
                       font-semibold
-
-                      transition-all
-                      duration-300
-
-                      hover:bg-gray-100
-                      hover:-translate-y-1
-
-                      active:scale-[0.98]
                     "
                   >
                     SMS
@@ -621,18 +543,13 @@ export function Perfil() {
               {/* DOCTOR */}
               <div
                 className="
+                  profile-card
                   bg-white
                   rounded-[32px]
                   p-8
                   border
                   border-gray-200
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-md
                 "
               >
                 <p className="text-[#747970] text-base">
@@ -664,28 +581,31 @@ export function Perfil() {
                 </div>
               </div>
 
-              {/* DIRECCION */}
+              {/* DIRECCIÓN */}
               <div
                 className="
+                  profile-card
                   bg-white
                   rounded-[32px]
                   p-8
                   border
                   border-gray-200
                   shadow-sm
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-md
                 "
               >
                 <p className="text-[#747970] text-base">
                   Dirección particular
                 </p>
 
-                <h3 className="text-3xl font-bold tracking-tight mt-6 leading-snug">
+                <h3
+                  className="
+                    text-3xl
+                    font-bold
+                    tracking-tight
+                    mt-6
+                    leading-snug
+                  "
+                >
                   {paciente.direccion}
                 </h3>
 
@@ -694,7 +614,6 @@ export function Perfil() {
                     mt-6
                     text-[#2E7D32]
                     font-semibold
-                    hover:underline
                   "
                 >
                   Ver en el mapa
@@ -702,40 +621,63 @@ export function Perfil() {
               </div>
 
             </div>
+
           </div>
+
         </div>
-      </section>
-
-      <style>{`
-        @keyframes fadeIn {
+      </section>      <style>{`
+        @keyframes pageAppear {
           from {
             opacity: 0;
+            transform: translateY(8px);
           }
-          to {
-            opacity: 1;
-          }
-        }
 
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(16px);
-          }
           to {
             opacity: 1;
             transform: translateY(0);
           }
         }
 
-        @keyframes profileEnter {
+        @keyframes bloodTypeAppear {
           from {
             opacity: 0;
-            transform: translateY(12px) scale(.95);
+            transform: scale(.96);
           }
+
           to {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: scale(1);
           }
+        }
+
+        .profile-card {
+          transition:
+            transform .25s ease,
+            box-shadow .25s ease;
+        }
+
+        .profile-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0,0,0,.04);
+        }
+
+        .profile-avatar {
+          transition: transform .3s ease;
+        }
+
+        .profile-avatar:hover {
+          transform: scale(1.02);
+        }
+
+        button {
+          transition:
+            transform .2s ease,
+            opacity .2s ease,
+            background-color .2s ease;
+        }
+
+        button:hover {
+          transform: translateY(-1px);
         }
       `}</style>
     </>
