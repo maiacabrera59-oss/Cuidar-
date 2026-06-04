@@ -68,25 +68,35 @@ export function Recordatorios() {
                 }}
               >
                 {/* ICONO */}
-                <div
-                  className={`
-                    min-w-12 md:min-w-16 h-12 md:h-16
-                    rounded-full flex items-center justify-center
-                    shadow-sm transition-all duration-300
+               <div
+  className={`
+    relative
+    min-w-12 md:min-w-16 h-12 md:h-16
+    rounded-full flex items-center justify-center
+    shadow-sm transition-all duration-300
 
-                    ${
-                      item.estado === "activo"
-                        ? "bg-[#2E7D32] text-white animate-[softPulse_3s_infinite]"
-                        : "bg-[#ECEEE8] text-[#7A7A7A]"
-                    }
-                  `}
-                >
-                  {item.icono === "clock" && <Clock3 size={28} />}
+    ${
+      item.estado === "activo"
+        ? "bg-[#2E7D32] text-white"
+        : "bg-[#ECEEE8] text-[#7A7A7A]"
+    }
+  `}
+>
+  {item.estado === "activo" && (
+    <div
+      className="
+        absolute inset-0
+        rounded-full
+        border-2 border-[#2E7D32]
+        animate-[breatheRing_4s_ease-in-out_infinite]
+      "
+    />
+  )}
 
-                  {item.icono === "food" && <Utensils size={28} />}
-
-                  {item.icono === "moon" && <Moon size={28} />}
-                </div>
+  {item.icono === "clock" && <Clock3 size={28} />}
+  {item.icono === "food" && <Utensils size={28} />}
+  {item.icono === "moon" && <Moon size={28} />}
+</div>
 
                 {/* CARD */}
                 <div
@@ -198,20 +208,22 @@ export function Recordatorios() {
             transform: scaleY(1);
           }
         }
+@keyframes breatheRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
 
-        @keyframes softPulse {
-          0% {
-            box-shadow: 0 0 0 0 rgba(46,125,50,.18);
-          }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.15;
+  }
 
-          70% {
-            box-shadow: 0 0 0 12px rgba(46,125,50,0);
-          }
-
-          100% {
-            box-shadow: 0 0 0 0 rgba(46,125,50,0);
-          }
-        }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
       `}</style>
     </>
   );

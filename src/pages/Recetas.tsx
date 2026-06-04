@@ -921,11 +921,10 @@ export function Recetas() {
             box-shadow .25s ease;
         }
 
-        .qr-button:hover,
-        .qr-mobile:hover {
-          transform: translateY(-2px);
-        }
-
+       .qr-button:hover,
+.qr-mobile:hover {
+  transform: scale(1.02);
+}
         .menu-button {
           transition:
             transform .2s ease,
@@ -980,3 +979,7 @@ export function Recetas() {
     </>
   );
 }
+
+
+
+
