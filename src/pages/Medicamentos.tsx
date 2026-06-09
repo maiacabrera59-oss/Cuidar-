@@ -5,6 +5,8 @@ import {
   type MedicamentoApi,
 } from "../services/api";
 
+import "./Medicamentos.css";
+
 interface Medicamento {
   id: number;
   nombre: string;
@@ -32,20 +34,18 @@ export function Medicamentos() {
     try {
       const data = await obtenerMedicamentos();
 
-      const medicamentosAdaptados: Medicamento[] = data.map(
-        (m: MedicamentoApi) => ({
-          id: m.idMedicamento,
-          nombre: m.nombre,
-          dosis: m.presentacion,
-          horario: "Sin horario",
-          indicaciones: m.descripcion,
-        })
-      );
+      const adaptados: Medicamento[] = data.map((m: MedicamentoApi) => ({
+        id: m.idMedicamento,
+        nombre: m.nombre,
+        dosis: m.presentacion,
+        horario: "Sin horario",
+        indicaciones: m.descripcion,
+      }));
 
-      setMedicamentos(medicamentosAdaptados);
+      setMedicamentos(adaptados);
     } catch (error) {
       console.error(error);
-      alert("No se pudieron cargar los medicamentos desde la API");
+      alert("No se pudieron cargar los medicamentos");
     }
   }
 
@@ -61,25 +61,23 @@ export function Medicamentos() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const nuevoMedicamentoApi = {
-      nombre: formData.nombre,
-      descripcion: formData.indicaciones,
-      presentacion: formData.dosis,
-      idLaboratorio: 1,
-    };
-
     try {
-      const medicamentoGuardado = await crearMedicamento(nuevoMedicamentoApi);
+      const nuevo = await crearMedicamento({
+        nombre: formData.nombre,
+        descripcion: formData.indicaciones,
+        presentacion: formData.dosis,
+        idLaboratorio: 1,
+      });
 
-      const medicamentoAdaptado: Medicamento = {
-        id: medicamentoGuardado.idMedicamento,
-        nombre: medicamentoGuardado.nombre,
-        dosis: medicamentoGuardado.presentacion,
+      const adaptado: Medicamento = {
+        id: nuevo.idMedicamento,
+        nombre: nuevo.nombre,
+        dosis: nuevo.presentacion,
         horario: formData.horario,
-        indicaciones: medicamentoGuardado.descripcion,
+        indicaciones: nuevo.descripcion,
       };
 
-      setMedicamentos([...medicamentos, medicamentoAdaptado]);
+      setMedicamentos((prev) => [...prev, adaptado]);
 
       setFormData({
         nombre: "",
@@ -91,230 +89,175 @@ export function Medicamentos() {
       setOpen(false);
     } catch (error) {
       console.error(error);
-      alert("No se pudo guardar el medicamento");
+      alert("Error al guardar medicamento");
     }
   }
 
   return (
-    <>
-      <section className="min-h-screen bg-[#F5F5F5] text-[#212121] px-4 py-6">
-        <div className="max-w-4xl mx-auto animate-[fadeIn_.5s_ease-out]">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div className="animate-[slideUp_.5s_ease-out]">
-              <h1 className="text-4xl font-bold text-[#2E7D32]">
-                Medicamentos
-              </h1>
+    <section className="min-h-screen bg-[#F5F5F5] text-[#212121] px-4 py-6">
+      <div className="max-w-4xl mx-auto animate-fadeIn">
 
-              <p className="text-[#747970] mt-2 text-lg">
-                Gestioná tu tratamiento diario fácilmente.
-              </p>
-            </div>
+        {/* HEADER */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 animate-slideUp">
 
-            <button
-              onClick={() => setOpen(true)}
-              className="bg-[#2E7D32] text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:scale-[0.98]"
-            >
-              + Agregar medicamento
-            </button>
-          </div>
+          <div>
+            <h1 className="text-4xl font-bold text-[#2E7D32]">
+              Medicamentos
+            </h1>
 
-          <div className="mt-10 flex flex-col gap-5">
-            {medicamentos.map((medicamento, index) => (
-              <div
-                key={medicamento.id}
-                className="group bg-white border border-gray-200 rounded-3xl p-6 shadow-sm opacity-0 animate-[slideUp_.6s_ease-out_forwards] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                style={{ animationDelay: `${index * 120}ms` }}
-              >
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
-                  <div className="flex items-start gap-5">
-                    <div className="w-16 h-16 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110">
-                      💊
-                    </div>
-
-                    <div>
-                      <h2 className="text-2xl font-bold">
-                        {medicamento.nombre}
-                      </h2>
-
-                      <div className="flex flex-wrap gap-3 mt-3">
-                        <span className="bg-[#2E7D32]/10 text-[#2E7D32] px-4 py-2 rounded-full text-sm font-semibold">
-                          {medicamento.dosis}
-                        </span>
-
-                        <span className="bg-gray-100 text-[#212121] px-4 py-2 rounded-full text-sm font-semibold">
-                          {medicamento.horario}
-                        </span>
-                      </div>
-
-                      <p className="text-[#747970] mt-4">
-                        {medicamento.indicaciones}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-3">
-                    <button className="bg-[#2E7D32] text-white px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.98]">
-                      Confirmar
-                    </button>
-
-                    <button className="border border-gray-300 px-6 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 hover:-translate-y-0.5 active:scale-[0.98]">
-                      Editar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 bg-white border border-gray-200 rounded-3xl p-8 shadow-sm animate-[slideUp_.8s_ease-out] transition-all duration-300 hover:shadow-md">
-            <h3 className="text-2xl font-bold text-[#2E7D32]">
-              Recordatorio
-            </h3>
-
-            <p className="text-[#747970] mt-3 text-lg leading-relaxed">
-              Seguir correctamente los horarios y dosis ayuda a mejorar la
-              efectividad del tratamiento y mantener un mejor control de la
-              salud.
+            <p className="text-[#747970] mt-2 text-lg">
+              Gestioná tu tratamiento diario fácilmente.
             </p>
           </div>
+
+          <button
+            onClick={() => setOpen(true)}
+            className="bg-[#2E7D32] text-white px-6 py-4 rounded-2xl font-bold hover:-translate-y-1 hover:shadow-lg transition"
+          >
+            + Agregar medicamento
+          </button>
         </div>
 
-        {open && (
-          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-3 sm:p-4 animate-[fadeIn_.25s_ease-out]">
-            <div className="bg-white w-full max-w-lg rounded-3xl p-5 sm:p-8 shadow-xl animate-[modalPop_.3s_ease-out] max-h-[90vh] overflow-y-auto">
-              <div className="flex justify-between items-center gap-3">
-                <h2 className="text-2xl sm:text-3xl font-bold text-[#2E7D32]">
-                  Nuevo medicamento
-                </h2>
+        {/* LISTA */}
+        <div className="mt-10 flex flex-col gap-5">
+          {medicamentos.map((med, index) => (
+            <div
+              key={med.id}
+              className={`card animate-slideUp delay-${index}`}
+            >
+              <div className="flex flex-col lg:flex-row lg:justify-between gap-5">
 
+                <div className="flex gap-5">
+                  <div className="icon">💊</div>
+
+                  <div>
+                    <h2 className="text-2xl font-bold">{med.nombre}</h2>
+
+                    <div className="flex gap-3 mt-3 flex-wrap">
+
+                      <span className="badge-green">
+                        {med.dosis}
+                      </span>
+
+                      <span className="badge-gray">
+                        {med.horario}
+                      </span>
+
+                    </div>
+
+                    <p className="text-[#747970] mt-4">
+                      {med.indicaciones}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  <button className="btn-green">
+                    Confirmar
+                  </button>
+
+                  <button className="btn-outline">
+                    Editar
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* INFO */}
+        <div className="mt-10 card animate-slideUp">
+          <h3 className="text-2xl font-bold text-[#2E7D32]">
+            Recordatorio
+          </h3>
+
+          <p className="text-[#747970] mt-3 text-lg">
+            Seguir correctamente los horarios y dosis mejora la efectividad del tratamiento.
+          </p>
+        </div>
+
+      </div>
+
+      {/* MODAL */}
+      {open && (
+        <div className="modal-bg animate-fadeIn">
+          <div className="modal animate-modalPop">
+
+            <div className="flex justify-between items-center">
+              <h2 className="text-2xl font-bold text-[#2E7D32]">
+                Nuevo medicamento
+              </h2>
+
+              <button onClick={() => setOpen(false)}>✕</button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
+
+              <div>
+                <label htmlFor="nombre">Nombre</label>
+                <input
+                  id="nombre"
+                  name="nombre"
+                  value={formData.nombre}
+                  onChange={handleChange}
+                  className="input"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="dosis">Dosis</label>
+                <input
+                  id="dosis"
+                  name="dosis"
+                  value={formData.dosis}
+                  onChange={handleChange}
+                  className="input"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="horario">Horario</label>
+                <input
+                  id="horario"
+                  type="time"
+                  name="horario"
+                  value={formData.horario}
+                  onChange={handleChange}
+                  className="input"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="indicaciones">Indicaciones</label>
+                <textarea
+                  id="indicaciones"
+                  name="indicaciones"
+                  value={formData.indicaciones}
+                  onChange={handleChange}
+                  className="input"
+                />
+              </div>
+
+              <div className="flex gap-3 mt-3">
                 <button
+                  type="button"
                   onClick={() => setOpen(false)}
-                  className="text-xl sm:text-2xl text-gray-500 transition-all duration-300 hover:text-black hover:rotate-90"
+                  className="btn-outline flex-1"
                 >
-                  ✕
+                  Cancelar
+                </button>
+
+                <button type="submit" className="btn-green flex-1">
+                  Guardar
                 </button>
               </div>
 
-              <form
-                onSubmit={handleSubmit}
-                className="mt-6 sm:mt-8 flex flex-col gap-4 sm:gap-5"
-              >
-                <div>
-                  <label htmlFor="nombre" className="font-semibold">
-                    Nombre
-                  </label>
+            </form>
 
-                  <input
-                    id="nombre"
-                    type="text"
-                    name="nombre"
-                    value={formData.nombre}
-                    onChange={handleChange}
-                    placeholder="Ej: Ibuprofeno"
-                    required
-                    className="w-full mt-2 border border-gray-300 rounded-2xl p-3 sm:p-4 outline-none transition-all duration-300 focus:border-[#2E7D32] focus:ring-4 focus:ring-[#2E7D32]/10"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="dosis" className="font-semibold">
-                    Dosis / Presentación
-                  </label>
-
-                  <input
-                    id="dosis"
-                    type="text"
-                    name="dosis"
-                    value={formData.dosis}
-                    onChange={handleChange}
-                    placeholder="Ej: 600mg"
-                    required
-                    className="w-full mt-2 border border-gray-300 rounded-2xl p-3 sm:p-4 outline-none transition-all duration-300 focus:border-[#2E7D32] focus:ring-4 focus:ring-[#2E7D32]/10"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="horario" className="font-semibold">
-                    Horario
-                  </label>
-
-                  <input
-                    id="horario"
-                    type="time"
-                    name="horario"
-                    value={formData.horario}
-                    onChange={handleChange}
-                    required
-                    className="w-full mt-2 border border-gray-300 rounded-2xl p-3 sm:p-4 outline-none transition-all duration-300 focus:border-[#2E7D32] focus:ring-4 focus:ring-[#2E7D32]/10"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="indicaciones" className="font-semibold">
-                    Descripción / Indicaciones
-                  </label>
-
-                  <textarea
-                    id="indicaciones"
-                    name="indicaciones"
-                    value={formData.indicaciones}
-                    onChange={handleChange}
-                    placeholder="Ej: Después de almorzar"
-                    rows={4}
-                    className="w-full mt-2 border border-gray-300 rounded-2xl p-3 sm:p-4 outline-none transition-all duration-300 focus:border-[#2E7D32] focus:ring-4 focus:ring-[#2E7D32]/10"
-                  />
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4">
-                  <button
-                    type="button"
-                    onClick={() => setOpen(false)}
-                    className="flex-1 border border-gray-300 py-3 sm:py-4 rounded-2xl transition-all duration-300 hover:bg-gray-100 hover:-translate-y-0.5 active:scale-[0.98]"
-                  >
-                    Cancelar
-                  </button>
-
-                  <button
-                    type="submit"
-                    className="flex-1 bg-[#2E7D32] text-white py-3 sm:py-4 rounded-2xl font-bold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98]"
-                  >
-                    Guardar medicamento
-                  </button>
-                </div>
-              </form>
-            </div>
           </div>
-        )}
-      </section>
-
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(24px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes modalPop {
-          from {
-            opacity: 0;
-            transform: scale(.96) translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-          }
-        }
-      `}</style>
-    </>
+        </div>
+      )}
+    </section>
   );
 }
