@@ -1,4 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  obtenerMedicamentos,
+  crearMedicamento,
+  type MedicamentoApi,
+} from "../services/api";
 
 interface Medicamento {
   id: number;
@@ -10,23 +15,7 @@ interface Medicamento {
 
 export function Medicamentos() {
   const [open, setOpen] = useState(false);
-
-  const [medicamentos, setMedicamentos] = useState<Medicamento[]>([
-    {
-      id: 1,
-      nombre: "Atorvastatina",
-      dosis: "40mg",
-      horario: "22:00",
-      indicaciones: "Antes de dormir",
-    },
-    {
-      id: 2,
-      nombre: "Metformina",
-      dosis: "500mg",
-      horario: "08:00",
-      indicaciones: "Con desayuno",
-    },
-  ]);
+  const [medicamentos, setMedicamentos] = useState<Medicamento[]>([]);
 
   const [formData, setFormData] = useState({
     nombre: "",
@@ -34,6 +23,31 @@ export function Medicamentos() {
     horario: "",
     indicaciones: "",
   });
+
+  useEffect(() => {
+    cargarMedicamentos();
+  }, []);
+
+  async function cargarMedicamentos() {
+    try {
+      const data = await obtenerMedicamentos();
+
+      const medicamentosAdaptados: Medicamento[] = data.map(
+        (m: MedicamentoApi) => ({
+          id: m.idMedicamento,
+          nombre: m.nombre,
+          dosis: m.presentacion,
+          horario: "Sin horario",
+          indicaciones: m.descripcion,
+        })
+      );
+
+      setMedicamentos(medicamentosAdaptados);
+    } catch (error) {
+      console.error(error);
+      alert("No se pudieron cargar los medicamentos desde la API");
+    }
+  }
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -44,34 +58,47 @@ export function Medicamentos() {
     });
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const nuevoMedicamento: Medicamento = {
-      id: Date.now(),
+    const nuevoMedicamentoApi = {
       nombre: formData.nombre,
-      dosis: formData.dosis,
-      horario: formData.horario,
-      indicaciones: formData.indicaciones,
+      descripcion: formData.indicaciones,
+      presentacion: formData.dosis,
+      idLaboratorio: 1,
     };
 
-    setMedicamentos([...medicamentos, nuevoMedicamento]);
+    try {
+      const medicamentoGuardado = await crearMedicamento(nuevoMedicamentoApi);
 
-    setFormData({
-      nombre: "",
-      dosis: "",
-      horario: "",
-      indicaciones: "",
-    });
+      const medicamentoAdaptado: Medicamento = {
+        id: medicamentoGuardado.idMedicamento,
+        nombre: medicamentoGuardado.nombre,
+        dosis: medicamentoGuardado.presentacion,
+        horario: formData.horario,
+        indicaciones: medicamentoGuardado.descripcion,
+      };
 
-    setOpen(false);
+      setMedicamentos([...medicamentos, medicamentoAdaptado]);
+
+      setFormData({
+        nombre: "",
+        dosis: "",
+        horario: "",
+        indicaciones: "",
+      });
+
+      setOpen(false);
+    } catch (error) {
+      console.error(error);
+      alert("No se pudo guardar el medicamento");
+    }
   }
 
   return (
     <>
       <section className="min-h-screen bg-[#F5F5F5] text-[#212121] px-4 py-6">
         <div className="max-w-4xl mx-auto animate-[fadeIn_.5s_ease-out]">
-          {/* HEADER */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="animate-[slideUp_.5s_ease-out]">
               <h1 className="text-4xl font-bold text-[#2E7D32]">
@@ -85,82 +112,25 @@ export function Medicamentos() {
 
             <button
               onClick={() => setOpen(true)}
-              className="
-                bg-[#2E7D32]
-                text-white
-                px-6
-                py-4
-                rounded-2xl
-                font-bold
-
-                transition-all
-                duration-300
-
-                hover:-translate-y-1
-                hover:shadow-lg
-
-                active:scale-[0.98]
-              "
+              className="bg-[#2E7D32] text-white px-6 py-4 rounded-2xl font-bold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg active:scale-[0.98]"
             >
               + Agregar medicamento
             </button>
           </div>
 
-          {/* LISTADO */}
           <div className="mt-10 flex flex-col gap-5">
             {medicamentos.map((medicamento, index) => (
               <div
                 key={medicamento.id}
-                className="
-                  group
-                  bg-white
-                  border
-                  border-gray-200
-                  rounded-3xl
-                  p-6
-
-                  shadow-sm
-
-                  opacity-0
-                  animate-[slideUp_.6s_ease-out_forwards]
-
-                  transition-all
-                  duration-300
-
-                  hover:-translate-y-1
-                  hover:shadow-lg
-                "
-                style={{
-                  animationDelay: `${index * 120}ms`,
-                }}
+                className="group bg-white border border-gray-200 rounded-3xl p-6 shadow-sm opacity-0 animate-[slideUp_.6s_ease-out_forwards] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                style={{ animationDelay: `${index * 120}ms` }}
               >
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
-                  {/* INFO */}
                   <div className="flex items-start gap-5">
-                    {/* ICONO */}
-                    <div
-                      className="
-                        w-16
-                        h-16
-                        rounded-2xl
-                        bg-[#2E7D32]/10
-
-                        flex
-                        items-center
-                        justify-center
-
-                        text-3xl
-
-                        transition-transform
-                        duration-300
-
-                        group-hover:scale-110
-                      "
-                    >
+                    <div className="w-16 h-16 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110">
                       💊
                     </div>
 
-                    {/* DATOS */}
                     <div>
                       <h2 className="text-2xl font-bold">
                         {medicamento.nombre}
@@ -182,46 +152,12 @@ export function Medicamentos() {
                     </div>
                   </div>
 
-                  {/* BOTONES */}
                   <div className="flex flex-col gap-3">
-                    <button
-                      className="
-                        bg-[#2E7D32]
-                        text-white
-                        px-6
-                        py-3
-                        rounded-2xl
-                        font-semibold
-
-                        transition-all
-                        duration-300
-
-                        hover:-translate-y-0.5
-                        hover:shadow-md
-
-                        active:scale-[0.98]
-                      "
-                    >
+                    <button className="bg-[#2E7D32] text-white px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.98]">
                       Confirmar
                     </button>
 
-                    <button
-                      className="
-                        border
-                        border-gray-300
-                        px-6
-                        py-3
-                        rounded-2xl
-
-                        transition-all
-                        duration-300
-
-                        hover:bg-gray-100
-                        hover:-translate-y-0.5
-
-                        active:scale-[0.98]
-                      "
-                    >
+                    <button className="border border-gray-300 px-6 py-3 rounded-2xl transition-all duration-300 hover:bg-gray-100 hover:-translate-y-0.5 active:scale-[0.98]">
                       Editar
                     </button>
                   </div>
@@ -230,26 +166,7 @@ export function Medicamentos() {
             ))}
           </div>
 
-          {/* RECORDATORIO */}
-          <div
-            className="
-              mt-10
-              bg-white
-              border
-              border-gray-200
-              rounded-3xl
-              p-8
-
-              shadow-sm
-
-              animate-[slideUp_.8s_ease-out]
-
-              transition-all
-              duration-300
-
-              hover:shadow-md
-            "
-          >
+          <div className="mt-10 bg-white border border-gray-200 rounded-3xl p-8 shadow-sm animate-[slideUp_.8s_ease-out] transition-all duration-300 hover:shadow-md">
             <h3 className="text-2xl font-bold text-[#2E7D32]">
               Recordatorio
             </h3>
@@ -262,46 +179,9 @@ export function Medicamentos() {
           </div>
         </div>
 
-        {/* MODAL */}
         {open && (
-          <div
-            className="
-      fixed
-      inset-0
-      bg-black/40
-
-      flex
-      items-center
-      justify-center
-
-      z-50
-
-      p-3
-      sm:p-4
-
-      animate-[fadeIn_.25s_ease-out]
-    "
-          >
-            <div
-              className="
-        bg-white
-        w-full
-        max-w-lg
-
-        rounded-3xl
-
-        p-5
-        sm:p-8
-
-        shadow-xl
-
-        animate-[modalPop_.3s_ease-out]
-
-        max-h-[90vh]
-        overflow-y-auto
-      "
-            >
-              {/* HEADER MODAL */}
+          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-3 sm:p-4 animate-[fadeIn_.25s_ease-out]">
+            <div className="bg-white w-full max-w-lg rounded-3xl p-5 sm:p-8 shadow-xl animate-[modalPop_.3s_ease-out] max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center gap-3">
                 <h2 className="text-2xl sm:text-3xl font-bold text-[#2E7D32]">
                   Nuevo medicamento
@@ -309,23 +189,12 @@ export function Medicamentos() {
 
                 <button
                   onClick={() => setOpen(false)}
-                  className="
-            text-xl
-            sm:text-2xl
-            text-gray-500
-
-            transition-all
-            duration-300
-
-            hover:text-black
-            hover:rotate-90
-          "
+                  className="text-xl sm:text-2xl text-gray-500 transition-all duration-300 hover:text-black hover:rotate-90"
                 >
                   ✕
                 </button>
               </div>
 
-              {/* FORM */}
               <form
                 onSubmit={handleSubmit}
                 className="mt-6 sm:mt-8 flex flex-col gap-4 sm:gap-5"
@@ -343,30 +212,13 @@ export function Medicamentos() {
                     onChange={handleChange}
                     placeholder="Ej: Ibuprofeno"
                     required
-                    className="
-              w-full
-              mt-2
-              border
-              border-gray-300
-              rounded-2xl
-              p-3
-              sm:p-4
-
-              outline-none
-
-              transition-all
-              duration-300
-
-              focus:border-[#2E7D32]
-              focus:ring-4
-              focus:ring-[#2E7D32]/10
-            "
+                    className="w-full mt-2 border border-gray-300 rounded-2xl p-3 sm:p-4 outline-none transition-all duration-300 focus:border-[#2E7D32] focus:ring-4 focus:ring-[#2E7D32]/10"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="dosis" className="font-semibold">
-                    Dosis
+                    Dosis / Presentación
                   </label>
 
                   <input
@@ -377,24 +229,7 @@ export function Medicamentos() {
                     onChange={handleChange}
                     placeholder="Ej: 600mg"
                     required
-                    className="
-              w-full
-              mt-2
-              border
-              border-gray-300
-              rounded-2xl
-              p-3
-              sm:p-4
-
-              outline-none
-
-              transition-all
-              duration-300
-
-              focus:border-[#2E7D32]
-              focus:ring-4
-              focus:ring-[#2E7D32]/10
-            "
+                    className="w-full mt-2 border border-gray-300 rounded-2xl p-3 sm:p-4 outline-none transition-all duration-300 focus:border-[#2E7D32] focus:ring-4 focus:ring-[#2E7D32]/10"
                   />
                 </div>
 
@@ -410,30 +245,13 @@ export function Medicamentos() {
                     value={formData.horario}
                     onChange={handleChange}
                     required
-                    className="
-              w-full
-              mt-2
-              border
-              border-gray-300
-              rounded-2xl
-              p-3
-              sm:p-4
-
-              outline-none
-
-              transition-all
-              duration-300
-
-              focus:border-[#2E7D32]
-              focus:ring-4
-              focus:ring-[#2E7D32]/10
-            "
+                    className="w-full mt-2 border border-gray-300 rounded-2xl p-3 sm:p-4 outline-none transition-all duration-300 focus:border-[#2E7D32] focus:ring-4 focus:ring-[#2E7D32]/10"
                   />
                 </div>
 
                 <div>
                   <label htmlFor="indicaciones" className="font-semibold">
-                    Indicaciones
+                    Descripción / Indicaciones
                   </label>
 
                   <textarea
@@ -443,24 +261,7 @@ export function Medicamentos() {
                     onChange={handleChange}
                     placeholder="Ej: Después de almorzar"
                     rows={4}
-                    className="
-              w-full
-              mt-2
-              border
-              border-gray-300
-              rounded-2xl
-              p-3
-              sm:p-4
-
-              outline-none
-
-              transition-all
-              duration-300
-
-              focus:border-[#2E7D32]
-              focus:ring-4
-              focus:ring-[#2E7D32]/10
-            "
+                    className="w-full mt-2 border border-gray-300 rounded-2xl p-3 sm:p-4 outline-none transition-all duration-300 focus:border-[#2E7D32] focus:ring-4 focus:ring-[#2E7D32]/10"
                   />
                 </div>
 
@@ -468,45 +269,14 @@ export function Medicamentos() {
                   <button
                     type="button"
                     onClick={() => setOpen(false)}
-                    className="
-              flex-1
-              border
-              border-gray-300
-              py-3
-              sm:py-4
-              rounded-2xl
-
-              transition-all
-              duration-300
-
-              hover:bg-gray-100
-              hover:-translate-y-0.5
-
-              active:scale-[0.98]
-            "
+                    className="flex-1 border border-gray-300 py-3 sm:py-4 rounded-2xl transition-all duration-300 hover:bg-gray-100 hover:-translate-y-0.5 active:scale-[0.98]"
                   >
                     Cancelar
                   </button>
 
                   <button
                     type="submit"
-                    className="
-              flex-1
-              bg-[#2E7D32]
-              text-white
-              py-3
-              sm:py-4
-              rounded-2xl
-              font-bold
-
-              transition-all
-              duration-300
-
-              hover:-translate-y-0.5
-              hover:shadow-lg
-
-              active:scale-[0.98]
-            "
+                    className="flex-1 bg-[#2E7D32] text-white py-3 sm:py-4 rounded-2xl font-bold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.98]"
                   >
                     Guardar medicamento
                   </button>
@@ -519,12 +289,8 @@ export function Medicamentos() {
 
       <style>{`
         @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
         @keyframes slideUp {
