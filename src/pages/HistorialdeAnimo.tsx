@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  crearHistorialAnimo,
+  ESTADOS_ANIMO_IDS,
+} from "../services/api";
 
 const estadosAnimo = [
   {
@@ -39,28 +43,48 @@ export function HistorialAnimo() {
 
   const [estadoSeleccionado, setEstadoSeleccionado] = useState("");
   const [observacion, setObservacion] = useState("");
+  const [guardando, setGuardando] = useState(false);
 
-  const guardarEstadoAnimo = () => {
+  const guardarEstadoAnimo = async () => {
     if (!estadoSeleccionado) {
       alert("Por favor, seleccioná cómo te sentís hoy.");
       return;
     }
 
-    const registro = {
-      estado: estadoSeleccionado,
-      observacion,
-      fecha: new Date().toLocaleDateString(),
-      hora: new Date().toLocaleTimeString(),
-    };
+    setGuardando(true);
 
-    console.log("Registro de estado de ánimo:", registro);
+    try {
+      const ahora = new Date();
 
-    alert("Estado de ánimo guardado correctamente.");
+      // Fecha en formato ISO (solo la parte de fecha, sin hora)
+      const fecha = ahora.toISOString().split("T")[0] + "T00:00:00";
 
-    setEstadoSeleccionado("");
-    setObservacion("");
+      // Hora en formato HH:mm:ss
+      const hora = ahora.toTimeString().split(" ")[0];
 
-    navigate("/app");
+      // Mapeamos el texto del estado al ID numérico de la BD
+      const idEstado = ESTADOS_ANIMO_IDS[estadoSeleccionado] ?? null;
+
+      await crearHistorialAnimo({
+        fecha,
+        hora,
+        observaciones: observacion.trim() || null,
+        idUsuario: 1, // reemplazá con el ID real del usuario autenticado
+        idEstado,
+      });
+
+      alert("Estado de ánimo guardado correctamente.");
+
+      setEstadoSeleccionado("");
+      setObservacion("");
+
+      navigate("/app");
+    } catch (error) {
+      console.error(error);
+      alert("Error al guardar el estado de ánimo. Intentá de nuevo.");
+    } finally {
+      setGuardando(false);
+    }
   };
 
   return (
@@ -234,6 +258,7 @@ export function HistorialAnimo() {
             {/* BOTON */}
             <button
               onClick={guardarEstadoAnimo}
+              disabled={guardando}
               className="
                 w-full
                 mt-8
@@ -255,9 +280,14 @@ export function HistorialAnimo() {
                 hover:opacity-95
 
                 active:scale-[0.98]
+
+                disabled:opacity-60
+                disabled:cursor-not-allowed
+                disabled:hover:translate-y-0
+                disabled:hover:shadow-none
               "
             >
-              Guardar estado de ánimo
+              {guardando ? "Guardando..." : "Guardar estado de ánimo"}
             </button>
           </div>
 
@@ -300,48 +330,24 @@ export function HistorialAnimo() {
 
       <style>{`
         @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
         @keyframes slideUp {
-          from {
-            opacity: 0;
-            transform: translateY(16px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(16px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes cardEnter {
-          from {
-            opacity: 0;
-            transform: translateY(20px) scale(.98);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
+          from { opacity: 0; transform: translateY(20px) scale(.98); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes softPulse {
-          0% {
-            box-shadow: 0 0 0 0 rgba(46, 125, 50, .15);
-          }
-
-          70% {
-            box-shadow: 0 0 0 10px rgba(46, 125, 50, 0);
-          }
-
-          100% {
-            box-shadow: 0 0 0 0 rgba(46, 125, 50, 0);
-          }
+          0%   { box-shadow: 0 0 0 0 rgba(46, 125, 50, .15); }
+          70%  { box-shadow: 0 0 0 10px rgba(46, 125, 50, 0); }
+          100% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
         }
       `}</style>
     </>
