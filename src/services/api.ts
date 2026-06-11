@@ -94,6 +94,7 @@ export async function crearHistorialAnimo(
 
   return response.json();
 }
+const API_URL = "https://localhost:7243/api";
 
 export interface UsuarioApi {
   idUsuario: number;
@@ -115,6 +116,29 @@ export interface UsuarioApi {
   idParentezco?: string;
 }
 
+export interface UsuarioCrear {
+  nombre: string;
+  apellido: string;
+  ciudad?: string;
+  fechaNacimiento?: string;
+  dni?: string;
+  foto?: string;
+  fechaAlta?: string;
+  fechaBaja?: string;
+  mail?: string;
+  idGrupoSanguineo?: number;
+  idUsuarioTipo?: number;
+  idAlergia?: number;
+  idCondicion?: number;
+  idSeguroMedico?: number;
+  idUsuarioPadre?: number;
+  idParentezco?: string;
+}
+
+// =========================
+// OBTENER TODOS LOS USUARIOS
+// =========================
+
 export async function obtenerUsuarios(): Promise<UsuarioApi[]> {
   const response = await fetch(`${API_URL}/Usuario`);
 
@@ -125,7 +149,13 @@ export async function obtenerUsuarios(): Promise<UsuarioApi[]> {
   return response.json();
 }
 
-export async function buscarUsuarioPorMail(mail: string): Promise<UsuarioApi | null> {
+// =========================
+// BUSCAR USUARIO POR MAIL
+// =========================
+
+export async function buscarUsuarioPorMail(
+  mail: string
+): Promise<UsuarioApi | null> {
   const usuarios = await obtenerUsuarios();
 
   const usuario = usuarios.find(
@@ -133,4 +163,80 @@ export async function buscarUsuarioPorMail(mail: string): Promise<UsuarioApi | n
   );
 
   return usuario ?? null;
+}
+
+export async function crearUsuario(
+  usuario: UsuarioCrear
+): Promise<UsuarioApi> {
+  const response = await fetch(`${API_URL}/Usuario`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(usuario),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(
+      `Error ${response.status}: ${error}`
+    );
+  }
+
+  return response.json();
+}
+
+
+export async function obtenerUsuarioPorId(
+  id: number
+): Promise<UsuarioApi> {
+  const response = await fetch(
+    `${API_URL}/Usuario/${id}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Usuario no encontrado");
+  }
+
+  return response.json();
+}
+
+
+export async function actualizarUsuario(
+  id: number,
+  usuario: UsuarioCrear
+): Promise<void> {
+  const response = await fetch(
+    `${API_URL}/Usuario/${id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(usuario),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Error al actualizar usuario");
+  }
+}
+
+// =========================
+// ELIMINAR USUARIO
+// =========================
+
+export async function eliminarUsuario(
+  id: number
+): Promise<void> {
+  const response = await fetch(
+    `${API_URL}/Usuario/${id}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Error al eliminar usuario");
+  }
 }
