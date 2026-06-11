@@ -31,7 +31,7 @@ export function Perfil() {
     const cargarUsuario = async () => {
       try {
         const res = await axios.get<Usuario>(
-          `https://localhost:5001/api/Usuario/${userId}`
+          `https://localhost:7243/api/Usuario/${userId}`
         );
         setUsuario(res.data);
       } catch (error) {
