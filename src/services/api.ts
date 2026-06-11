@@ -94,3 +94,43 @@ export async function crearHistorialAnimo(
 
   return response.json();
 }
+
+export interface UsuarioApi {
+  idUsuario: number;
+  nombre: string;
+  apellido: string;
+  ciudad?: string;
+  fechaNacimiento?: string;
+  dni?: string;
+  foto?: string;
+  fechaAlta?: string;
+  fechaBaja?: string;
+  mail?: string;
+  idGrupoSanguineo?: number;
+  idUsuarioTipo?: number;
+  idAlergia?: number;
+  idCondicion?: number;
+  idSeguroMedico?: number;
+  idUsuarioPadre?: number;
+  idParentezco?: string;
+}
+
+export async function obtenerUsuarios(): Promise<UsuarioApi[]> {
+  const response = await fetch(`${API_URL}/Usuario`);
+
+  if (!response.ok) {
+    throw new Error("Error al obtener usuarios");
+  }
+
+  return response.json();
+}
+
+export async function buscarUsuarioPorMail(mail: string): Promise<UsuarioApi | null> {
+  const usuarios = await obtenerUsuarios();
+
+  const usuario = usuarios.find(
+    (u) => u.mail?.toLowerCase() === mail.toLowerCase()
+  );
+
+  return usuario ?? null;
+}
