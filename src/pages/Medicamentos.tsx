@@ -5,7 +5,7 @@ import {
   type MedicamentoApi,
 } from "../services/api";
 
-
+import "./Medicamentos.css";
 
 interface Medicamento {
   id: number;

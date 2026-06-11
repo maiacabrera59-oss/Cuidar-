@@ -7,7 +7,6 @@ export interface MedicamentoApi {
     presentacion: string;
     idLaboratorio: number;
 }
-
 export async function obtenerMedicamentos(): Promise<MedicamentoApi[]> {
     const response = await fetch(`${API_URL}/Medicamentos`);
 
