@@ -94,7 +94,6 @@ export async function crearHistorialAnimo(
 
   return response.json();
 }
-const API_URL = "https://localhost:7243/api";
 
 export interface UsuarioApi {
   idUsuario: number;
